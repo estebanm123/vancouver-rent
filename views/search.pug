@@ -1,0 +1,116 @@
+extends index
+block heading
+block main-listings
+    ul.listings
+        h4 Results:
+        .listings-top
+            span.listings-amount= listings.length + " results found."
+            select(name="sort")
+                option(selected disabled hidden) Sort
+                option(value="increasing price") Increasing Price
+                option(value="decreasing price") Decreasing Price
+    .arrow.invisible Back to top
+
+block append scripts
+    script. 
+        //edits/rearranges search elements to fit listings 
+        let header = document.querySelector('header')
+        header.classList.remove('normal');
+        header.classList.add('less-margin');
+        
+        let form = document.querySelector('.search-form');
+        form.classList.add('searched');
+        let submitSection = form.querySelector('.submit-section');
+        form.removeChild(submitSection);
+        submitSection.classList.add('submitted');
+        form.firstElementChild.append(submitSection);
+
+        //displays listings
+        let listings = !{JSON.stringify(listings)};
+        let listingsCopy = [...listings];
+        if (!listings.length) {
+            let msg = document.createElement('div');
+            msg.innerHTML = 'Sorry, no results were found.';
+            msg.classList.add('search-message');
+            document.querySelector('.listings').append(msg);
+        } else {
+            createListings();
+            document.addEventListener('scroll', loadListings);
+            document.addEventListener('scroll', displayArrow);
+            document.querySelector('.arrow').addEventListener('click', () => {
+                window.scrollTo(0,0);
+            });
+        }
+
+        function loadListings() {
+            let docPos = document.querySelector('.listings').getBoundingClientRect().bottom;
+            if (!listingsCopy.length || docPos > document.documentElement.clientHeight + 50) return; // if scrolled to 50px from bottom
+            createListings();
+            loadListings();
+        }
+
+        function createListings() {
+            let selection = listingsCopy.splice(0, calcAmountofListings()); 
+            for (let post of selection) {
+                let li = document.createElement('li');
+                li.className = 'result';
+                li.insertAdjacentHTML('beforeend', `<span class="result-price">$${post.price}</span>`);
+                if (post.numBdr && (post.numBdr.includes("br") || post.numBdr.includes("BR"))) {
+                    li.insertAdjacentHTML('beforeend', `<span class="result-bdr">${post.numBdr}</span>`);
+                } else {
+                    li.insertAdjacentHTML('beforeend', `<span class="result-bdr-empty"></span>`);
+                }
+                li.insertAdjacentHTML('beforeend', `<a class="result-title" href="${post.link}">${post.title}</a>`);
+                if (post.location) li.insertAdjacentHTML('beforeend', `<span class="result-location">${post.location}</span>`);
+                li.insertAdjacentHTML('beforeend',`<span class="result-source">${post.source}</span>`);
+                document.querySelector('.listings').append(li); 
+            }
+        }
+
+        function calcAmountofListings() {
+            return (document.documentElement.clientHeight > 1080)? 40 : 20;
+        }
+
+        //back-to-top arrow
+        function displayArrow() {
+            let arrow = document.querySelector('.arrow');
+            if (document.documentElement.scrollTop > document.documentElement.clientHeight) {
+                arrow.className = "arrow visible";
+            } else {
+                arrow.className = "arrow invisible";
+            }
+        }
+
+        //sorting
+        let sortSelect = document.querySelector('[name="sort"]');
+        sortSelect.addEventListener('change', handleSort);
+        sortSelect.selectedIndex = 1;  
+        sortSelect.dispatchEvent(new Event('change'));
+
+
+        function handleSort() {
+            deleteListings();
+            listingsCopy = [...listings];
+            if (sortSelect.selectedIndex === 1) {
+                listingsCopy.sort((a, b) => a.price - b.price)
+            } else {
+                listingsCopy.sort((a, b) => b.price - a.price)
+            }
+            createListings();
+        }
+
+        function deleteListings() {
+            let oldListings = document.querySelectorAll('.result');
+            for (let el of oldListings) {
+                el.remove();
+            }
+        }
+        
+
+    
+
+
+
+
+        
+        

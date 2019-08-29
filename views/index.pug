@@ -1,0 +1,95 @@
+extends layout
+block head 
+block nav
+  a.selected(href='/') Home
+  a(href='/about') Info
+  a(href='/contact') Contact
+
+block content
+  main
+      form.search-form(method='get', action='/search')
+        block heading
+          h4 Choose your options:
+        .search-grid
+          .location
+            label Location/ neighborhood:
+            input(name='location', type='text')
+          .type
+            label Type:
+            select(name='type')
+              option(value='apartment') Apartment
+              option(value='house') House
+              option(value='no preference') No preference
+          .price
+            label Price: (C$)
+            input.min(name='price-min', type='text', placeholder='min')
+            input.max(name='price-max', type='text', placeholder='max')
+          .bedrooms
+            label Bedrooms:
+            select(name='bdr-min')
+              option(value='min') min
+              option(value='1') 1
+              option(value='2') 2
+              option(value='3') 3
+              option(value='4') 4
+              option(value='5+') 5+
+            select(name='bdr-max')
+              option(value='max') max
+              option(value='1') 1
+              option(value='2') 2
+              option(value='3') 3
+              option(value='4') 4
+              option(value='5+') 5+
+          .bathrooms
+            label Bathrooms:
+            select(name='bth-min')
+              option(value='min') min
+              option(value='1') 1
+              option(value='2') 2
+              option(value='3') 3
+              option(value='4') 4
+              option(value='5+') 5+
+            select(name='bth-max')
+              option(value='max') max
+              option(value='1') 1
+              option(value='2') 2
+              option(value='3') 3
+              option(value='4') 4
+              option(value='5+') 5+
+        .submit-section
+          input.btn.btn-submit(type='submit', value='Find')
+          .warning (Load times may be long)
+      block main-listings
+  if errors   
+   ul.messages
+    for error in errors
+     li!= error.msg
+  
+block scripts
+  if data
+   script.
+      //prepopulate form with previously entered data
+      let d = !{JSON.stringify(data)};
+      for (let key of Object.keys(d)) {
+        console.log(key +": " + d[key]);
+        let el = document.querySelector(`[name='${key}']`);
+        if (el) el.value = d[key];
+      }
+
+  script. 
+    //avoid clipping of "no preference option" for type select
+    let select = document.querySelector("select[name='type']");
+    handleTypeFont();
+    select.addEventListener("change", () => {
+      handleTypeFont();
+    });
+
+    function handleTypeFont() {
+        if (select.selectedIndex === 2) {
+        select.classList.add("small-font");
+      } else {
+        if (select.classList.contains("small-font")) select.classList.remove("small-font");
+      }
+    }
+
+

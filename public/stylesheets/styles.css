@@ -1,0 +1,363 @@
+:root {
+    font-size: 62.5%; /* 1 rem == 10px */
+    font-family: "Arial", sans-serif;
+    --light-grey: #EEEEEE;
+    --light-grey-background: #FBFBFB;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: white;
+    min-height: 100%;
+    position: relative;
+}   
+
+/* header */
+
+header {
+    padding: 2rem 5rem;
+    background-color: var(--light-grey-background);
+    border-bottom: 1px solid var(--light-grey);
+    box-shadow: 0px 1px 10px var(--light-grey);   
+    width: 100%;
+}  
+
+header.normal {
+    margin-bottom: 6rem;
+}
+
+header.less-margin {
+    margin-bottom: 1rem;
+}
+ 
+h2, nav {
+    display: inline-block;
+}
+
+h2 {
+    margin-right: 10rem;
+    font-size: 3rem;
+}
+
+nav a {
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: black;
+    margin-right: 4rem;
+}
+
+nav a:not(.selected):hover {
+    border-bottom: 1.5px rgb(174, 174, 174) solid;
+}
+
+nav .selected {
+    border-bottom: 1.5px black solid;
+}
+
+nav a:last-child {
+    margin-right: 0;
+}
+
+/* main */
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+.search-form {
+    font-size: 1.5rem;
+    grid-column: 2/3;
+    background-color: var(--light-grey-background);
+    border-radius: 0%;
+    padding: 4rem 4rem 12rem;
+    position: relative;
+    border: 1px solid var(--light-grey);
+    box-shadow: 0px 2px 10px var(--light-grey);
+}
+
+form.searched {
+    padding: 1rem 0rem;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 13rem);
+    justify-content: center;
+    
+}
+
+.search-grid input[type='text'], .search-grid select {
+    margin-left: .5rem;
+    margin-top: .5rem;
+}
+
+.search-grid > div:not(.submit-section) {  
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    border: 1px solid var(--light-grey);
+}
+
+.bedrooms, .bathrooms, .price {
+   
+}
+
+.bedrooms select, .bathrooms select {
+    width: 5rem;
+}
+
+.small-font {
+    font-size: 1.2rem;
+}
+
+.submitted.submit-section {
+    position: static;
+    grid-column: span 2;
+    margin: 3rem 0 0 3rem;
+}
+
+.submit-section {
+    margin-top: 5rem;
+    position: absolute;
+    left: calc(50% - 4.5rem);
+  
+}
+
+.submit-section  div.warning {
+    padding: 1rem 0;
+    font-size: .9rem;
+}
+
+.btn-submit:hover {
+    box-shadow: 0px 2px 2pxvar(--light-grey);
+}
+
+.btn {
+    font-size: 1.5rem;
+    max-width: 9rem;
+    max-height: 4rem;
+    padding: 1rem 3rem;
+    border: none;
+    background-color: var(--light-grey);
+    border-radius: 5%;
+    border: solid 1px #CACACA;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0px 4px 5px var(--light-grey);
+}
+
+.btn:hover {
+    color: #5a5a52;
+    border: solid 1px rgb(220, 220, 220);
+}
+
+
+.price input {
+    max-width: 6rem;
+}
+
+.location input {
+    max-width: 10rem;
+}
+
+.type select {
+    max-width: 10rem;
+}
+
+.search-form h4 {
+    font-size: 2rem;
+    margin-bottom: 5rem;
+}
+
+.search-grid input[type="text"] {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: .2rem;
+}
+
+.search-grid div {
+    padding: 1rem;
+}
+
+.search-grid label {
+    padding: .5rem;
+}
+
+.spacer { /* needed because footer is absolutely positioned, so I can't use margins */
+    height: 7rem;
+}
+
+footer {
+    height: 5rem;
+    width: 100%;
+    background-color: var(--light-grey);  
+    border-top: 1px solid #CACACA;  
+    position: absolute;
+    bottom: 0%; 
+}
+
+.listings h4 {
+    margin-bottom: 1.8rem;
+    font-size: 2rem;
+}
+
+.listings {
+    grid-column: 2/3;
+    padding: 1rem 3rem;
+    background-color: rgba(231, 231, 231, 0.463);
+    border: solid rgb(223, 223, 223) 1px;
+    margin: 2.2rem 0;
+    list-style-type: none;
+    height: 100%;
+}
+
+.result {       
+    border: solid rgb(223, 223, 223) 1px;
+    padding: 1rem;
+    height: 5rem;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.result-price {
+    font-weight: bold;
+    padding-right: .8rem;
+}
+
+.result-bdr {
+    text-transform: uppercase;
+    margin: 0 .3rem;
+    padding: 0 .7rem;
+    border-right: solid rgb(223, 223, 223) 1px;
+    border-left: solid rgb(223, 223, 223) 1px;
+}
+
+.result-bdr-empty {
+    width: 4.7rem;
+    border-right: solid rgb(223, 223, 223) 1px;
+    border-left: solid rgb(223, 223, 223) 1px;
+}
+
+.result-title {
+    display: inline-block;
+    color: rgb(101, 99, 99);
+    font-weight: bold;
+    padding-left: .8rem;
+    overflow: hidden;
+}
+
+.result-title:link {
+    text-decoration: none;
+}
+
+.result-title:hover {
+    text-decoration: underline;
+    color: black;
+    cursor: pointer;
+}
+
+.result-source {
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: .5rem;
+}
+
+.result-location {
+    font-size: 1.2rem;
+    margin: 0 1rem;
+}
+
+.result:not(:last-child) {
+    border-bottom: 0;
+}
+
+.search-message {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.arrow {
+    top: 30%;
+    left: 6rem;
+    font-size: 1.5rem;
+    position: fixed;
+    color: #5a5a52;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.arrow:hover {
+    font-size: 1.6rem;  
+}
+
+.visible {
+    display: block;
+}
+
+.invisible {
+    display: none;
+}
+
+.messages {
+    margin: 1.5rem calc(50% - 5rem);
+    width: 30rem;
+}
+
+.messages li {
+    padding: .3rem;
+    font-size: 1.2rem;
+}
+
+.listings-top {
+    margin-bottom: 2rem;
+}
+
+select[name="sort"] {
+    float: right;
+}
+
+
+
+@media only screen and (max-width:622px) { /*'only' used to hide query from older browsers */
+   header h2 {
+        margin-bottom: 3rem;
+    }
+
+    body {
+        position: absolute; 
+    }
+
+    header {
+        margin-bottom: 2rem;
+    }
+
+    .result-title, .result-price, .result-bdr {
+        font-size: 1rem;
+    }
+
+    .result-source {
+        font-size: .7rem;
+    }
+}
+
+@media only screen and (max-width:1000px) {
+    .result-location {
+        display: none;
+    }
+
+    .arrow {
+        display: none;
+    }
+}
