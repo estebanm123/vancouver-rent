@@ -4,3 +4,7 @@ This webapp provides a compact search interface displaying Vancouver rental list
 To use locally, make sure to download and install the dependencies with 'npm install' command. Then call 'npm start' to run.
 
 Currently hosted at: https://vancouver-rent.herokuapp.com (please wait up to 30s for a first load - the Heroku free version shuts down apps that haven't been active for more than 30 min)
+
+Supports Greater Vancouver area.
+
+Currently working on adding scraper for RentFaster.ca
